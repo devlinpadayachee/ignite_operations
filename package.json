@@ -9,14 +9,17 @@
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
     "deploy": "git fetch origin master",
-    "postdeploy" : "git reset --hard FETCH_HEAD && git clean -df",
+    "postdeploy": "git reset --hard FETCH_HEAD && git clean -df",
     "commit": "git add . && git commit -m",
     "postcommit": "git push origin master",
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
+    "axios": "^0.17.0",
+    "lodash": "^4.17.4",
     "scrollreveal": "^3.3.6",
-    "vue": "^2.3.3"
+    "vue": "^2.3.3",
+    "vue-router": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
