@@ -17,8 +17,10 @@
   "dependencies": {
     "axios": "^0.17.0",
     "lodash": "^4.17.4",
+    "papaparse": "^4.3.7",
     "scrollreveal": "^3.3.6",
     "vue": "^2.3.3",
+    "vue-json-excel": "^0.2.1",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

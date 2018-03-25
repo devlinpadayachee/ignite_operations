@@ -2,10 +2,21 @@
    <!--Rtp-->
    <section class="wow animated fadeInDown" data-wow-delay="0.5s">
       <!-- <h2 class="xs-mb-20">ORDER <strong>LTE-A</strong> TODAY AND <strong>SAVE</strong> ON YOUR <strong>SET-UP</strong></h2> -->
+      <download-excel
+          class   = "btn btn-default"
+          :data   = 'printArr'
+          :fields = 'jsonFields'
+          :meta   = 'jsonMeta'
+          name    = 'filename.xls'>
+
+          Download Excel (you can customize this with html code!)
+
+      </download-excel>
       <div class="row">
         <!-- <div class="alert alert-warning">
           Services with no status data
         </div> -->
+
         <div v-for="(service,index) in noLastStatusServices" class="col-sm-3">
           <div class="card my-1" style="border-left:10px solid; border-color:#f1c40f;">
             <div class="card-header">
@@ -79,7 +90,20 @@ export default {
       msg: 'Lte Page',
       noLastStatusServices: [],
       withLastStatusServices: [],
-      unDeliveredServices: []
+      unDeliveredServices: [],
+      printArr: [],
+      // jsonFields: {
+      //   'createdAt': 'String',
+      //   'neologyId': 'String',
+      //   'status': 'String',
+      //   'router': 'String'
+      // },
+      jsonMeta: [
+        [{
+          key: 'charset',
+          value: 'utf-8'
+        }]
+      ]
     }
   },
   mounted () {
@@ -87,6 +111,17 @@ export default {
     this.updateAllServices()
   },
   methods: {
+    saveFile: function () {
+      const data = JSON.stringify(this.withLastStatusServices)
+      const blob = new Blob([data], {type: 'text/plain'})
+      const e = document.createEvent('MouseEvents')
+      const a = document.createElement('a')
+      a.download = 'test.json'
+      a.href = window.URL.createObjectURL(blob)
+      a.dataset.downloadurl = ['text/json', a.download, a.href].join(':')
+      e.initEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+      a.dispatchEvent(e)
+    },
     updateAllServices () {
       var self = this
       console.log('Updating Services')
@@ -119,6 +154,7 @@ export default {
           } else {
             var servicearr = service.externalServiceRef.split('-')
             console.log(service.createdAt + ',' + servicearr[2] + ',' + service.id + ',' + service.lastStatus.tracking_info.status + ',' + service.lastStatus.tracking_info.device_type + ',' + service.metadata.lte_router)
+            self.printArr.push({createdAt: service.createdAt, neologyId: servicearr[2], status: service.lastStatus.tracking_info.status, router: service.metadata.lte_router})
             self.withLastStatusServices.push(service)
           }
         })

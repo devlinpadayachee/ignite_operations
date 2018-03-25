@@ -42,10 +42,12 @@
 
 <script>
 import Lte from './components/Lte'
+import Importer from './components/Importer'
 export default {
   name: 'app',
   components: {
-    Lte
+    Lte,
+    Importer
   }
 }
 </script>

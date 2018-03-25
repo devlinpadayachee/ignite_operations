@@ -5,6 +5,7 @@ module.exports = {
     "$": true,
     "jQuery": true,
     "WOW" : true,
+    "JsonExcel" : true,
     "scrollspy" : true,
     "scrollSpy" : true,
     "ScrollReveal" : true
